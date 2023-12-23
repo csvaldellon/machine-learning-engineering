@@ -16,5 +16,4 @@ RUN bash download_model.sh
 COPY app/ app/
 
 # runs our application at the start of the docker image
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 CMD ["python", "app/main.py"]
