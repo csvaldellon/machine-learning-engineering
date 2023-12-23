@@ -1,20 +1,19 @@
 import os
 
 import requests
-from config import STANFORD_QA_DATA_LINK
+from config import DATA_FILENAME, STANFORD_QA_DATA_LINK
 
 
 def download_file(url):
     try:
         response = requests.get(url)
         if response.ok:
-            filename = url.split("/")[-1]
-            if not os.path.exists(filename):
-                with open(filename, "wb") as file:
+            if not os.path.exists(DATA_FILENAME):
+                with open(DATA_FILENAME, "wb") as file:
                     file.write(response.content)
-                print(f"File '{filename}' has been downloaded successfully!")
+                print(f"File '{DATA_FILENAME}' has been downloaded successfully!")
             else:
-                print(f"File '{filename}' already exists. Skipping download.")
+                print(f"File '{DATA_FILENAME}' already exists. Skipping download.")
         else:
             print("Failed to download the file. Status code:", response.status_code)
     except requests.RequestException as e:
