@@ -14,6 +14,10 @@
 - Link to HuggingFace Repo for "Cloud-Hosting" Portion: https://huggingface.co/spaces/csvaldellon/chat_bot/tree/main
 - Link to Swagger Docs for "Cloud-Hosted" Endpoint: https://csvaldellon-chat-bot.hf.space/docs
 - Link to Chatbot UI Demo: https://console.dialogflow.com/api-client/demo/embedded/fa7f093b-a34e-4a0d-8ce7-d806f5b21266
+    - This simple bot can detect 2 intents then returns its confidence on what it thinks the intent is about
+    - The 2 intents:
+        1. python-demo: "demo", "Hello World", "Python Demo"
+        2. data-science: "regression", "random forest", "machine learning", "data science"
 
 ## Streamlit Demo for Text Summarization with BART
 
