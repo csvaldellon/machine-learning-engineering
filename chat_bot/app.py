@@ -34,4 +34,4 @@ def webhook():
 if __name__ == "__main__":
     app.secret_key = "ItIsASecret"
     app.debug = True
-    app.run(port=4040)
+    app.run()
