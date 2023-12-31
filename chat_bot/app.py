@@ -25,8 +25,8 @@ async def webhook(request: Request):
     data = await request.json()
     logger.info(data)
 
-    intent_name = data["intent"]["displayName"]
-    confidence_score = data["intentDetectionConfidence"]
+    intent_name = data["queryResult"]["intent"]["displayName"]
+    confidence_score = data["queryResult"]["intentDetectionConfidence"]
 
     return {
         "fulfillmentText": f"I am {round(confidence_score*100, 2)}% certain you are talking about {intent_name}."
