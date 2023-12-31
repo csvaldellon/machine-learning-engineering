@@ -22,7 +22,12 @@ def home():
 
 @app.post("/webhook")
 async def webhook(request: Request):
-    # Access request body using request object
     data = await request.json()
     logger.info(data)
-    return {"fulfillmentText": "Hello from the bot world"}
+
+    intent_name = data["intent"]["displayName"]
+    confidence_score = data["intentDetectionConfidence"]
+
+    return {
+        "fulfillmentText": f"I am {round(confidence_score*100, 2)}% certain you are talking about {intent_name}."
+    }
