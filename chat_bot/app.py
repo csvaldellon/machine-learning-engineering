@@ -1,37 +1,28 @@
-import json
-import os
+import logging
 
-import flask
-from flask import request, send_from_directory
+from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse
 
-# <pre class="wp-block-code"><code># Flask app should start in global layout
-app = flask.Flask(__name__)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+app = FastAPI()
 
 
-@app.route("/favicon.ico")
+@app.get("/favicon.ico")
 def favicon():
-    return send_from_directory(
-        os.path.join(app.root_path, "static"),
-        "favicon.ico",
-        mimetype="image/favicon.png",
-    )
+    return FileResponse("static/favicon.ico", media_type="image/x-icon")
 
 
-@app.route("/")
-@app.route("/home")
+@app.get("/")
+@app.get("/home")
 def home():
     return "Hello World"
 
 
-@app.route("/webhook", methods=["POST"])
-def webhook():
-    req = request.get_json(force=True)
-    print(req)
-
+@app.post("/webhook")
+async def webhook(request: Request):
+    # Access request body using request object
+    data = await request.json()
+    logger.info(data)
     return {"fulfillmentText": "Hello from the bot world"}
-
-
-if __name__ == "__main__":
-    app.secret_key = "ItIsASecret"
-    app.debug = True
-    app.run()
