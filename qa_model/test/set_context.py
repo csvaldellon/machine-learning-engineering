@@ -1,7 +1,7 @@
 import json
 
 import requests
-from config import DATA_FILENAME, ENDPOINT
+from config import DATA_FILENAME, HOSTED_ENDPOINT, LOCAL_ENDPOINT
 
 with open(DATA_FILENAME, "r") as f:
     data = json.load(f)
@@ -26,6 +26,17 @@ print("Number of available questions: {}".format(len(questions)))
 
 json_data = {"questions": questions, "answers": answers}
 
-response = requests.post(f"{ENDPOINT}/set_context", json=json_data)
 
-print(response.json())
+def test_set_context(endpoint):
+    response = requests.post(f"{endpoint}/set_context", json=json_data)
+    print(response.json())
+
+
+if __name__ == "__main__":
+    endpoint = input("Endpoint [local or hosted]")
+    if endpoint == "local":
+        test_set_context(LOCAL_ENDPOINT)
+    elif endpoint == "hosted":
+        test_set_context(HOSTED_ENDPOINT)
+    else:
+        print("Wrong endpoint.")
